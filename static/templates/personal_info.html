@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Personal Information</title>
+<style>
+    body {
+        font-family: 'DM Serif Display', serif;
+        background: #001124;
+        color: #FFFFFF;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        align-items: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 20px 20px;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 900px;
+        background: #0f1926;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    #profilePic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid #015FC7;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+    #profilePic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .info-container {
+        width: 100%;
+        max-width: 600px;
+        background: #003c7c;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #FFFFFF;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 16px;
+        color: #FFFFFF;
+    }
+
+    input[type="text"], input[type="date"], input[type="email"], input[type="tel"], textarea {
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        color: #000000;
+    }
+
+    textarea {
+        resize: vertical;
+        height: 100px;
+    }
+
+    .profile-actions {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    #changeProfilePic, #editProfileButton {
+        background-color: #015FC7;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-family: 'DM Serif Display', serif;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: 5px;
+    }
+
+    #changeProfilePic:hover, #editProfileButton:hover {
+        background-color: #003d92;
+    }
+
+    #photo {
+        display: none;
+    }
+
+    .custom-file-upload {
+        background-color: #015FC7;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-family: 'DM Serif Display', serif;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        display: inline-block;
+    }
+
+    .custom-file-upload:hover {
+        background-color: #003d92;
+    }
+</style>
+{% endblock %}
+{% block body %}
+
+<div class="container">
+    <div class="profile-container">
+        <!-- Profile Picture -->
+        <div id="profilePic">
+            {% if photo %}
+                <img src="{{ url_for('static', filename=photo) }}" alt="User Photo">
+            {% else %}
+                <img src="{{ url_for('static', filename='images/default_user.png') }}" alt="User Photo">
+            {% endif %}
+        </div>
+
+        <!-- Profile Actions -->
+        <div class="profile-actions">
+            <form method="POST" enctype="multipart/form-data">
+                <label for="photo" class="custom-file-upload">Upload New Photo:</label>
+                <input type="file" id="photo" name="photo">
+                <button type="button" id="changeProfilePic">Change Photo</button>
+            </form>
+        </div>
+
+        <!-- User Info -->
+        <div class="info-container">
+            <h2>Personal Information</h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="{{ name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" value="{{ dob }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="parent_name">Father's/Mother's Name:</label>
+                    <input type="text" id="parent_name" name="parent_name" value="{{ parent_name }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="{{ email }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="mobile">Mobile Number:</label>
+                    <input type="tel" id="mobile" name="mobile" value="{{ mobile }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="aadhar">Aadhar Number:</label>
+                    <input type="text" id="aadhar" name="aadhar" value="{{ aadhar }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address">{{ address }}</textarea>
+                </div>
+
+                <button type="submit" id="editProfileButton">Update Information</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('changeProfilePic').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const photoInput = document.getElementById('photo');
+        const formData = new FormData();
+
+        if (photoInput.files.length > 0) {
+            formData.append('photo', photoInput.files[0]);
+
+            fetch('/personal_info', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('File uploaded successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to upload the file.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error uploading the file.');
+            });
+        } else {
+            alert('Please select a file to upload.');
+        }
+    });
+</script>
+
+{% endblock %}

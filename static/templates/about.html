@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block head %}
+<title>About Us</title>
+    <style>
+        body {
+            font-family: 'DM Serif Display', serif;
+            background-color: #001124;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Page Container */
+        .page-container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #001124;
+        }
+
+        /* About Content */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* About Title */
+        .about-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 90px;
+            color: #FFFFFF;
+            transform: rotate(-90deg);
+            white-space: nowrap;
+            margin-right: 20px;
+        }
+
+        /* Line */
+        .line-3 {
+            width: 4px;
+            height: 300px;
+            background: #FFFFFF;
+            margin-right: 20px;
+        }
+
+        /* About Description */
+        .about-description {
+            font-family: 'DM Serif Display', serif;
+            font-size: 24px;
+            line-height: 1.6;
+            color: #FFFFFF;
+            max-width: 700px;
+        }
+
+        @media (max-width: 1024px) {
+            .about-title {
+                font-size: 70px;
+            }
+            .line-3 {
+                height: 200px;
+            }
+            .about-description {
+                font-size: 20px;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="page-container">
+    <div class="about-content">
+        <div class="about-title">About</div>
+        <div class="line-3"></div>
+        <div class="about-description">
+            An online voting system that will replace the old ballot system or paper system. Over time we have utilized the required technology in every sector to improve efficiency and save extra resources. But the voting system is still very expensive and requires a bigger workforce. The system is slower and still not completely tamper-proof. We bring a system that is safe, reliable, and solves modern issues like higher reachability of the booth, crowd-free voting, inexpensive, faster results, and others.
+        </div>
+    </div>
+</div>
+{% endblock %}

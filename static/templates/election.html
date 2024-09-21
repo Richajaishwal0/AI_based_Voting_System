@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Election Page</title>
+<style>
+    /* General Page Styles */
+    body {
+        font-family: 'DM Serif Display', serif;
+        background: #001124;
+        color: #FFFFFF;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        align-items: center; /* Center content horizontally */
+    }
+
+    .election-page {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px;
+        background: #002B56;
+        font-family: 'DM Serif Display', serif;
+        color: #FFFFFF;
+        padding: 40px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        margin-top: 10%;
+    }
+
+    .vote-button {
+        display: inline-block;
+        width: 160px;
+        height: 50px;
+        background: linear-gradient(135deg, #015FC7, #003F6C);
+        border-radius: 25px;
+        color: #FFFFFF;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+        text-decoration: none;
+        margin-top: 30px;
+        transition: background 0.3s, transform 0.2s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .vote-button:hover {
+        background: linear-gradient(135deg, #003F6C, #015FC7);
+        transform: scale(1.05);
+    }
+
+    /* Upcoming Elections Section */
+    .upcoming-elections {
+        font-size: 28px;
+        color: #FFD700;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    /* Election Entries */
+    .election-entries {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .election-rectangle {
+        background: #FFFFFF;
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: #000000;
+    }
+
+    .election-details {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .election-date {
+        font-size: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="election-page">
+
+    <!-- Upcoming Elections Section -->
+    <div class="upcoming-elections">Upcoming Elections:</div>
+
+    <!-- Election Entries -->
+    <div class="election-entries">
+        <div class="election-rectangle">
+            <div class="election-details">UP State Election:</div>
+            <div class="election-date">02-04-2022</div>
+        </div>
+
+        <div class="election-rectangle">
+            <div class="election-details">Manipur State Election:</div>
+            <div class="election-date">04-04-2022</div>
+        </div>
+
+        <div class="election-rectangle">
+            <div class="election-details">Chhattisgarh State Election:</div>
+            <div class="election-date">12-04-2022</div>
+        </div>
+
+        <div class="election-rectangle">
+            <div class="election-details">Bengaluru State Election:</div>
+            <div class="election-date">20-04-2022</div>
+        </div>
+
+        <div class="election-rectangle">
+            <div class="election-details">Gurgaon Municipal Corporation:</div>
+            <div class="election-date">26-04-2022</div>
+        </div>
+    </div>
+    <a href="{{ url_for('rules') }}" class="vote-button">Vote</a>
+
+</div>
+{% endblock %}

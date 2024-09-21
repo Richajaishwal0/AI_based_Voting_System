@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Login Page</title>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #001124;
+        font-family: 'DM Serif Display', serif;
+    }
+
+    .login-container {
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        padding: 20px;
+        background-color: #001B44;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #FFFFFF;
+    }
+
+    .login-header {
+        font-family: 'DM Serif Display', serif;
+        font-weight: 400;
+        font-size: 36px;
+        line-height: 44px;
+        margin-bottom: 30px;
+        color: #FFFFFF;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .form-group label {
+        font-family: 'Padauk', sans-serif;
+        font-size: 18px;
+        color: #FFFFFF;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .input-field {
+        width: 100%;
+        height: 45px;
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        border-radius: 5px;
+        padding: 0 15px;
+        font-size: 16px;
+        color: #333333;
+    }
+
+    .input-field:focus {
+        border-color: #007BFF;
+        outline: none;
+    }
+
+    .forgot-password, .register-link {
+        font-family: 'Padauk', sans-serif;
+        font-size: 16px;
+        color: #499FFE;
+        margin-top: 10px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .forgot-password:hover, .register-link:hover {
+        text-decoration: underline;
+    }
+
+    .login-button {
+        width: 100%;
+        height: 45px;
+        background-color: #015FC7;
+        border: none;
+        font-family: 'Padauk', sans-serif;
+        font-weight: 700;
+        font-size: 18px;
+        color: #FFFFFF;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+    }
+
+    .login-button:hover {
+        background-color: #013E8A;
+    }
+
+    .login-button:disabled {
+        background-color: #888888;
+        cursor: not-allowed;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <div class="login-header">Login</div>
+
+    <form action="{{ url_for('login') }}" method="POST" onsubmit="return verifyCaptcha()">
+        
+        <!-- Email Field -->
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="input-field" name="email" placeholder="Enter your email" required>
+        </div>
+        
+        <!-- Password Field -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="input-field" name="password" placeholder="Enter your password" required minlength="6">
+        </div>
+
+        <!-- CAPTCHA (Add your CAPTCHA widget here) -->
+        <!-- Example: <div class="g-recaptcha" data-sitekey="your-site-key"></div> -->
+
+        <!-- Forgot Password Link -->
+        <a href="/forgot_password" class="forgot-password">Forgot Password?</a>
+
+        <!-- Register Link -->
+        <a href="{{ url_for('registration') }}" class="register-link">Not a user? Register now</a>
+
+        <!-- Login Button -->
+        <button type="submit" class="login-button">Login</button>
+    </form>
+</div>
+
+<script>
+    function verifyCaptcha() {
+        // Placeholder for CAPTCHA verification logic
+        // Return false to prevent form submission if CAPTCHA fails
+        return true;
+    }
+</script>
+{% endblock %}

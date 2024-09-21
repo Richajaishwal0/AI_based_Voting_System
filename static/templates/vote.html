@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Voting Panel</title>
+<style>
+    /* Voting Panel */
+    body {
+        font-family: 'DM Serif Display', serif;
+        background: linear-gradient(135deg, #001124, #003366);
+        color: #FFFFFF;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .voting-panel {
+        max-width: 1200px;
+        padding: 40px;
+        background-color: #002B56;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        border: 2px solid #003C77;
+        width: 90%;
+        margin: 20px;
+    }
+
+    .voting-panel-title {
+        font-size: 48px;
+        color: #FFD700;
+        margin-bottom: 40px;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+        font-family: 'Tienne', sans-serif;
+        font-size: 24px;
+        color: #FFD700;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Contestant Section */
+    .contestant {
+        width: 100%;
+        background: #004C99;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        transition: background 0.3s ease, transform 0.3s ease;
+        border: 1px solid #005BCC;
+    }
+
+    .contestant:hover {
+        background: #003C77;
+        transform: scale(1.02);
+    }
+
+    .contestant-name, .contestant-party {
+        font-family: 'Tienne', sans-serif;
+        font-size: 26px;
+        color: #FFFFFF;
+        margin: 0;
+    }
+
+    .contestant input[type="radio"] {
+        margin-right: 20px;
+        transform: scale(1.5);
+        cursor: pointer;
+    }
+
+    /* Submit Vote */
+    .submit-vote {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .submit-text {
+        background: #FFB600;
+        padding: 15px 50px;
+        font-size: 26px;
+        color: #001124;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .submit-text:hover {
+        background: #FFA400;
+        transform: scale(1.05);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .voting-panel {
+            padding: 20px;
+        }
+
+        .voting-panel-title {
+            font-size: 36px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .contestant {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .contestant-name, .contestant-party {
+            font-size: 22px;
+        }
+
+        .submit-text {
+            font-size: 22px;
+            padding: 10px 30px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="voting-panel">
+    <!-- Voting Panel Title -->
+    <div class="voting-panel-title">Voting Panel</div>
+    
+    <form action="{{ url_for('vote') }}" method="POST">
+        <h2>Select a candidate to vote:</h2>
+        
+        {% for candidate in candidates %}
+            <div class="contestant">
+                <!-- Radio Button for Candidate -->
+                <input type="radio" name="candidate" value="{{ candidate['name'] }}" id="{{ candidate['name'] }}-radio" required>
+                
+                <!-- Candidate's Name and Details -->
+                <label for="{{ candidate['name'] }}-radio" class="contestant-name">{{ candidate['name'] }}</label>
+                <div class="contestant-party">{{ candidate['details'] }}</div>
+            </div>
+        {% endfor %}
+        
+        <!-- Submit Vote Button -->
+        <div class="submit-vote">
+            <button type="submit" class="submit-text">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

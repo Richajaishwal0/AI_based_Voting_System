@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block head %}
+<title>Election Voting Instructions</title>
+    <style>
+        /* Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5f5f5;
+            height: 100vh;
+            font-family: 'Tienne', sans-serif;
+        }
+
+        /* Instructions Box */
+        .instructions-box {
+            background-color: #fff;
+            border: 3px solid #015FC7;
+            width: 800px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Title */
+        .instructions-title {
+            font-size: 26px;
+            font-weight: bold;
+            color: #015FC7;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Instructions Text */
+        .instructions-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Checkbox Area */
+        .checkbox-area {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #015FC7;
+            border-radius: 4px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #015FC7;
+        }
+
+        .checkbox-label {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button {
+            background-color: #015FC7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+
+        .button:hover:not(:disabled) {
+            background-color: #004ea0;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="instructions-box">
+        <!-- Title -->
+        <div class="instructions-title">Voting Instructions</div>
+
+        <!-- Instructions Text -->
+        <div class="instructions-text">
+            Please carefully follow these steps to cast your vote. Ensure you're in a well-lit area and are alone while casting your vote. Select only one candidate and submit your vote. Once cast, you cannot change your vote. If you encounter any issues, please contact the election commission's helpline.
+        </div>
+
+        <!-- Checkbox Area -->
+        <div class="checkbox-area">
+            <input type="checkbox" id="agree-checkbox" class="custom-checkbox">
+            <label for="agree-checkbox" class="checkbox-label">I understand and will follow the above steps</label>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <button class="button" id="proceed-button" disabled>Proceed</button>
+            <button class="button" onclick="window.location.href='{{ url_for('login') }}'">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const checkbox = document.getElementById('agree-checkbox');
+    const proceedButton = document.getElementById('proceed-button');
+
+    checkbox.addEventListener('change', function() {
+        proceedButton.disabled = !this.checked;
+    });
+
+    proceedButton.addEventListener('click', function() {
+        if (!checkbox.checked) {
+            alert('Please agree to the instructions before proceeding.');
+        } else {
+            window.location.href = '{{ url_for('vote') }}';
+        }
+    });
+</script>
+{% endblock %}
