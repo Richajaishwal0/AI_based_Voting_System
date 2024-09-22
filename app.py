@@ -7,8 +7,9 @@ from dotenv import load_dotenv
 import re
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
-
-
+import cv2,face_recognition
+import numpy as np
+import base64
 
 # Load environment variables from .env file
 load_dotenv()
