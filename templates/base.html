@@ -38,6 +38,43 @@
         .navbar a:hover {
             background-color: #0160C8;
         }
+        #output {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            height: 150px;
+            overflow-y: auto;
+        }
+        
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .voice-options {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        input[type="radio"] {
+            margin-left: 5px;
+        }
     </style>
     {% block head %}
         {% endblock %}
@@ -53,7 +90,17 @@
     <a href="{{ url_for('login') }}">Login</a>
 </div>
 <div id="output"></div>
-<div id="output"></div>
+
+    <div class="controls">
+        <button id="start-btn">Start Voice Recognition</button>
+        <button id="stop-btn">Stop Voice Recognition</button>
+
+        <div class="voice-options">
+            <label>Select Voice:</label>
+            <input type="radio" id="male" name="voice" value="male" checked> Male
+            <input type="radio" id="female" name="voice" value="female"> Female
+        </div>
+    </div>
 <script src="{{ url_for('static', filename='js/speechRecognition.js') }}"></script>
     {% block body %}
     {% endblock %}
